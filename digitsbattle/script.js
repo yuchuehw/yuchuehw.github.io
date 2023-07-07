@@ -285,9 +285,13 @@ function skip(){
 function number_only(input_field){
   input_field.value = input_field.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 }
-
 window.addEventListener('load', function () {
   playButton.style.backgroundColor = "#cccccc";
+  document.getElementById('seed').onkeypress = function(e) {
+    if(e.keyCode == 13) {
+        battle()
+    }
+}
 })
 
 
