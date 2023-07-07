@@ -1,1 +1,125 @@
-<h> hello world </h>
+<!DOCTYPE html>
+<html x-ms-format-detection="none" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digits Battle: The perfect battle game for friends and family</title>
+
+  <link rel="manifest" href="./assets/manifest.webmanifest">
+  <link rel="canonical" href="https://digitsbattle.ponggg.repl.co">
+  <link rel="icon" href="./assets/NYT-Digits-Icon-Fav.5e2a7326.svg">
+  <link rel="icon shortcut" href="./assets/NYT-Digits-Icon.be5db6a9.svg"
+    sizes="3232">
+  <link rel="apple-touch-icon" href="./assets/NYT-Digits-Icon.be5db6a9.svg">
+  <link rel="stylesheet" href="style.css" media="all">
+
+
+</head>
+
+<body>
+  <div id="cover">
+    <div id="cover-content">
+      <div class="container">
+        <img id="digits-icon" src="./assets/NYT-Digits-Icon.be5db6a9.svg"
+          alt="Digits Icon. Four Overlapping circles.">
+        <div id="game-title">Digits Battle</div>
+        <div id="game-beta">Enter a seed to begin:</div>
+        <div style="position: absolute;left: 0;right: 0;margin: 0 auto; width: 190px; overflow: hidden;">
+          <div style="left: 0; position: sticky;">
+            <input id="seed" type="text" maxlength="4" oninput="number_only(this)"
+              onkeyup="seedCheck(this)" />
+            <button id="play-button" onclick='battle()'>BATTLE!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="title-bar">
+    <div class="title-bar-wrapper"> <span> <span class="title-bar-game">Digits Battle</span> </span> </div>
+  </div>
+
+  <div id="toolbar">
+    <div class="toolbar-content">
+      <div class="toolbar-left" id="toolbar-left">
+
+      </div>
+
+      <div class="toolbar-right">
+        <button id="reveal-button" class="toolbar-button"> 🕒5:00 </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="history-drawer" onclick="toggleHistoryDrawer()">
+    <div id="game-status-mobile" class="collapsed">
+      <div id="history-container-mobile">
+        <div id="history-header-mobile" class="history-header" style="display:none">Your operations</div>
+        <ul id="history-mobile">
+          <li id="history-placeholder-mobile" style="color: rgb(204, 204, 204); display: flex;">Your progress ...</li>
+        </ul>
+      </div>
+      <div id="solution-container-mobile">
+        <div id="solution-header-mobile" class="solution-header" style="display:none">Our solution</div>
+        <ul id="solution-mobile"></ul>
+      </div>
+      <div id="toggle-history"> <span id="toggle-history-icon" class="collapsed"></span> </div>
+    </div>
+  </div>
+
+
+  <div id="main-content">
+    <div id="game-content">
+      <div id="game">
+        <div id="game-prompt-text"> Use any combination of numbers to reach the target: </div>
+        <div id="target-wrapper">
+          <div id="target" class="">67</div>
+        </div>
+        <div id="numbers">
+          <div class="number" id="number-pos-0" onclick="main(this)">4</div>
+          <div class="number" id="number-pos-1" onclick="main(this)">5</div>
+          <div class="number" id="number-pos-2" onclick="main(this)">25</div>
+          <div class="number" id="number-pos-3" onclick="main(this)">1</div>
+          <div class="number" id="number-pos-4" onclick="main(this)">3</div>
+          <div class="number" id="number-pos-5" onclick="main(this)">10</div>
+        </div>
+        <div id="operations">
+          <button id="undo" aria-label="undo" onclick="undo()"> <span class="icon-undo"></span> </button>
+          <button class="operation" id="+" aria-label="add" onclick="main(this)"> <span class="icon-add"></span>
+          </button>
+          <button class="operation" id="−" aria-label="subtract" onclick="main(this)"> <span
+              class="icon-subtract"></span> </button>
+          <button class="operation" id="×" aria-label="multiply" onclick="main(this)"> <span
+              class="icon-multiply"></span> </button>
+          <button class="operation" id="÷" aria-label="divide" onclick="main(this)"> <span class="icon-divide"></span>
+          </button>
+        </div>
+        <div id="submit-and-share-buttons">
+
+          <button id="back-to-puzzles-button" class="oblong-button" style="display: block;" onclick="skip()"> 5 SKIPS
+            LEFT </button>
+          <button id="share-button" class="oblong-button" style="display: block;"> # Solved:0 </button>
+        </div>
+      </div>
+      <div id="game-status">
+
+        <div id="game-status-desktop">
+          <div id="history-container-desktop">
+            <div id="history-header-desktop" class="history-header" style="display:none">Your operations</div>
+            <ul id="history-desktop">
+              <li id="history-placeholder-desktop">Completed operations will appear here.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="./problem.js"></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
