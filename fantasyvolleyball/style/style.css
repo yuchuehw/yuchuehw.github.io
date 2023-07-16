@@ -1,0 +1,90 @@
+/* Styling for navigation bar */
+.navbar {
+  background-color: #d1d1d1 !important;
+  text-align: center;
+  z-index: 99;
+}
+
+@media (min-width: 992px) {
+  .navbar{
+    background-color: #d1d1d1 !important;
+    text-align: left !important;
+    z-index: 99;
+  }
+}
+
+/* Styling for footer */
+footer {
+  background-color: #d1d1d1 !important;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #000000;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+
+#footer {
+  display: none;
+}
+
+#content-wrapper {
+  min-height: calc(100vh - 100px); /* Adjust the value (100px) based on your footer's height and any additional spacing */
+}
+
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark-theme {
+  background-color: #222;
+  color: #fff;
+}
+/* input card fix */
+.custom-card {
+  width: 500px;
+}
+
+.custom-input {
+  width: 100%;
+  max-width: 400px;
+}
+
+.custom-button {
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  transition: background-color 0.3s;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+/* */
+
+.pagination {
+  margin-top: 1rem;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.dark-theme .card {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #343a40;
+}
