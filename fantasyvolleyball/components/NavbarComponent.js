@@ -15,17 +15,23 @@ export default{
             <li class="nav-item">
               <router-link class="nav-link" to="/">Home</router-link>
             </li>
-            <li class="nav-item">
+            <li v-if="isLoggedIn" class="nav-item">
               <router-link class="nav-link" to="/roster">Roster</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/available-players">Available Players</router-link>
+              <router-link class="nav-link" to="/top-players">Top Players</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/leaderboard">Leaderboard</router-link>
             </li>
             <li v-if="isLoggedIn" class="nav-item">
-              <router-link class="nav-link" to="/login">Logout</router-link>
+              <router-link class="nav-link" to="/achievement">Achievement</router-link>
+            </li>
+            <li v-if="isLoggedIn" class="nav-item">
+              <router-link class="nav-link" to="/stats">Stats</router-link>
+            </li>
+            <li v-if="isLoggedIn" class="nav-item">
+              <a class="router-link-active router-link-exact-active nav-link" data-bs-toggle="modal" href = '#logoutModal'>Logout</a>
             </li>
             <li v-else class="nav-item">
               <router-link class="nav-link" to="/login">Login</router-link>
@@ -43,10 +49,34 @@ export default{
         </div>
       </div>
     </nav>
+    
+    
+    <!-- Logout Confirmation Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #333; color: #fff; border-radius: 0.5rem;">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Logout Confirmation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to logout?
+          </div>
+          <div class="modal-footer">
+            <!-- Button to cancel logout -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <!-- Button to confirm logout -->
+            <button type="button" class="btn btn-danger" @click="logout()"  data-bs-dismiss="modal">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   `,
   data() {
     return {
       isLoggedIn: false,
+      showLogoutModal: true,
     };
   },
   watch: {
@@ -77,15 +107,18 @@ export default{
       }
     },
     toggleTheme() {
-    const themeSwitch = document.getElementById("Switch");
-    if (themeSwitch.checked) {
-      // Dark theme
-      document.body.classList.remove("dark-theme");
-    } else {
-      // Light theme
-      document.body.classList.add("dark-theme");
-    }
-  },
-    // ...
+      const themeSwitch = document.getElementById("Switch");
+      if (themeSwitch.checked) {
+        // Dark theme
+        document.body.classList.remove("dark-theme");
+      } else {
+        // Light theme
+        document.body.classList.add("dark-theme");
+      }
+    },
+    logout(){
+      window.user = null;
+      this.$router.push({path: "/", query: {success: true}});
+    },
   },
 };
