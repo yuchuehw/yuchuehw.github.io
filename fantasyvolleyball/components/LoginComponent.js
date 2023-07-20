@@ -1,12 +1,17 @@
 export default {
   template: `
     <div class="alert alert-info mt-3 position-relative" role="alert">
-      The website is currently only demoing. no email is required to login. click send to continue.
+      At present, our website is in its demo phase, and you're invited to be a part of the action! While login information is not mandatory, your participation can help us rigorously test and refine our system. As a token of appreciation, we're excited to offer you an exclusive achievement badge that will be yours to showcase once we officially launch!
     </div>
+    
+
     <div v-if="sendSuccess" class="alert alert-info mt-3 position-relative" role="alert">
-      We have send a verification email to {{emailHold}}. Please check your email and junk folder!
-      <button type="button" class="btn-close position-absolute end-0" @click="sendSuccess = false"></button>
+      <h4 class="alert-heading">Verification Email Sent! 📩</h4>
+      <p>We've just sent a verification email to {{emailHold}}. Take a moment to check both your inbox and junk folder to ensure you receive it. Once you click on the verification link, you'll be all set to embark on an amazing journey with us!</p>
+      <hr>
+      <p class="mb-0">If you encounter any issues or have any questions, feel free to reach out to our friendly support team. Get ready to dive into the fantastic world of Fantasy Volleyball! 🏐✨</p>
     </div>
+    
     <section class="vh-100" v-if="form1">
       <div class="container d-flex justify-content-center align-items-center h-100">
         <div class="card p-4 custom-card" style="background-color: #d1d1d1; color:#000000; border-radius: 1rem;">
@@ -17,19 +22,18 @@ export default {
             <div class="form-outline mb-4">
               <label class="form-label" for="phoneNumberField">Phone Number</label>
               <div class="input-group">
-                <span class="input-group-text">+</span>
-                <input type="tel" id="phoneNumberField" class="form-control form-control-lg custom-input" placeholder="1 (800) 555‑0100" v-on:keyup.enter="verify" v-model="tel" required />
+                <span class="input-group-text">+1</span>
+                <input type="tel" id="phoneNumberField" class="form-control form-control-lg custom-input" placeholder="(800) 555‑0100" v-on:keyup.enter="verify" v-model="tel" :class="{'is-invalid': showBadNumber}" @input="validatePhone" required />
+                <div class="invalid-feedback">
+                  Invalid phone number.
+                </div>
               </div>
               <div id="telHelp" class="form-text">bracket, space, and dash are optional.</div>
-              <div id="validationServer03Feedback" class="invalid-feedback">
-                Please provide a valid city.
-              </div>
-          
             </div>
             
 
             <!-- Message -->
-            <label class="form-check-label"> We will send you a code to verify it is you! No sign up required! No passowrd to remember! Message and Data Rates May Apply.</label>
+            <label class="form-check-label text-left">No sign-up required! Just enter your phone number, and we'll send you a verification code. It's simple, secure, and hassle-free! Message and data rates may apply. 🏐🎮</label>
             
             <!-- Checkbox -->
             <div class="form-check d-flex justify-content-start mb-4">
@@ -67,7 +71,7 @@ export default {
             </div>
 
             <!-- Message -->
-            <label class="form-check-label"> We will send you a login link to verify it is you! No sign up required! No passowrd to remember!</label>
+            <label class="form-check-label">No sign-up needed! Simply provide your email address, and we'll send you a secure login link. No passwords to remember or hassle with. It's that easy!🏐🤩</label>
             
             <!-- Checkbox -->
             <div class="form-check d-flex justify-content-start mb-4">
@@ -95,7 +99,7 @@ export default {
         <div class="card p-4 custom-card" style="background-color: #d1d1d1; color:#000000; border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <h3 class="mb-5">Check your phone</h3>
+            <h3 class="mb-5">Check your text message</h3>
 
             <div class="form-outline mb-4">
               <label class="form-label" for="codeField">Verification Code</label>
@@ -106,7 +110,7 @@ export default {
             </div>
 
             <!-- Message -->
-            <label class="form-check-label"> Check you phone for a 6 digit code we send you. Do not tell anyone this code.</label>
+            <label class="form-check-label"> Please check your phone for a confidential 6-digit code that we've sent you. This code is vital for securing your account, so please ensure not to share it with anyone else.</label>
             
             <!-- Checkbox -->
             <div class="form-check d-flex justify-content-start mb-4">
@@ -130,10 +134,10 @@ export default {
     </section>
   `,
   mounted() {
-    if (this.isLoggedIn) {
-      this.logout();
-    }
-    this.refocus();
+    // if (this.isLoggedIn) {
+    //   this.logout();
+    // }
+    // this.refocus();
   },
   data() {
     return {
@@ -150,7 +154,8 @@ export default {
       submitted:false,
       isGoodCode:false,
       triedCode:false,
-      
+      isGoodPhone:false,
+      triedNumber:false,
     };
   },
   computed: {
@@ -162,16 +167,28 @@ export default {
     },
     showBadCode() {
       return this.triedCode && !this.isGoodCode
+    },
+    showBadNumber() {
+      return this.triedNumber && !this.isGoodPhone
     }
   },
   methods: {
     verify() {
       // temporary implementation
-      this.form1 = false;
-      this.form3 = true;
-      return
+      if(this.tel == ""){
+        this.form1 = false;
+        this.form3 = true;
+        return
+      }
+      this.triedNumber = true; 
       // actual implementation
-      this.tel = "+"+this.tel
+      
+      if(this.isGoodPhone){
+        this.tel = "+1"+this.tel.replace(/\D/g, "")
+      }else{
+        return
+      }
+      
       let promise = window.handlePhoneNumberAuth(this.tel)
       promise
         .then((confirm) => {
@@ -187,8 +204,11 @@ export default {
     },
     phoneLog(){
       // temporary implementation
-      this.login()
-      return
+      if(this.code == ""){
+        this.login()
+        return  
+      }
+      
       // actual implementation
       this.triedCode = true
       if(!this.isGoodCode){
@@ -212,8 +232,10 @@ export default {
     },
     send(){
       // temporary implementation
-      this.login()
-      return
+      if(this.email == ""){
+        this.login()
+        return  
+      }
       // actual implementation
       this.submitted = true
       if(!this.isValidEmail){
@@ -249,7 +271,7 @@ export default {
     },
     validateVerifCode(){
       if(this.code == ""){
-        this.submitted = false
+        this.triedCode = false
       }
       const pattern = /^[0-9]{6,6}$/;
       if(pattern.test(this.code)){
@@ -257,7 +279,20 @@ export default {
       }else{
         this.isGoodCode = false;
       }
-    },refocus(){
+    },
+    validatePhone(){
+      if(this.code == ""){
+        this.triedNumber = false
+      }
+      const testPhone = this.tel.replace(/\D/g, "");
+      const pattern = /^[0-9]{10,10}$/;
+      if(pattern.test(testPhone)){
+        this.isGoodPhone = true;
+      }else{
+        this.isGoodPhone = false;
+      }
+    },
+    refocus(){
       if(this.form1){
         document.getElementById("phoneNumberField").focus()
       }else if(this.form2){
@@ -266,5 +301,6 @@ export default {
         document.getElementById("codeField").focus()
       }
     },
+
   },
 };
