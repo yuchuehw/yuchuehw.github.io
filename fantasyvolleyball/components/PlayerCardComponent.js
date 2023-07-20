@@ -8,7 +8,7 @@ export default {
         <h5 v-else class="card-title">Empty</h5>
         <p class="card-text">Position: {{ player.position }}</p>
         <p class="card-text">School: {{ player.school }}</p>
-        <p class="card-text">School Level: {{ player.schoolLevel }}</p>
+        <p class="card-text">School Level: {{ player.year }}</p>
         <p class="card-text">Points: {{ player.points }}</p>
       </div>
     </div>
