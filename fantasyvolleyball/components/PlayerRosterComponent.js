@@ -1,6 +1,30 @@
 import PlayerCard from './PlayerCardComponent.js';
 export default {
   template: `
+    <!-- News Subscription Modal -->
+    <div class="modal fade" id="newsSubscriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #333; color: #fff; border-radius: 0.5rem;">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fantasy Volleyball News Subscription</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Would you like to receive news and updates from Fantasy Volleyball? You can cancel anytime at https://yuchuehw.github.io/fantasyvolleyball/#/subscription
+          </div>
+          
+          <div class="modal-footer">
+            <!-- Button to decline news subscription -->
+            <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">Let me think about it.</button>
+            <!-- Button to decline news subscription -->
+            <button type="button" class="btn btn-secondary" @click="dontSubscribe()" data-bs-dismiss="modal">No, thanks</button>
+            <!-- Button to confirm news subscription -->
+            <button type="button" class="btn btn-primary" @click="subscribe()" data-bs-dismiss="modal">Yes, subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div>
       <div v-if="loginSuccess" class="alert alert-info mt-3 position-relative" role="alert">
         Welcome Back!
@@ -104,9 +128,6 @@ export default {
           </div>
       </div>
       <div v-else>
-        <div class="alert alert-info mt-3 position-relative" role="alert">
-          The website is currently only demoing. no email is required to login. go login right now and enjoy the demo!
-        </div>
         <p>Please login to access the player roster.</p>
       </div>
     </div>
@@ -121,16 +142,96 @@ export default {
       actionSuccess: false,
       outOfPostionWarning: false,
       players: [
-        { name: 'Player 1', position: 'L', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 2', position: 'S', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 3', position: 'OPP', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 4', position: 'MB', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 5', position: 'MB', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 6', position: 'OH', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 7', position: 'OH', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 8', position: 'L', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 9', position: 'OH', school: 'UCLA', schoolLevel: 'FR', points: '999' },
-        { name: 'Player 10', position: 'MB', school: 'UCLA', schoolLevel: 'FR', points: '999' },
+        {
+          "school": "pittsburgh",
+          "height": "5-6",
+          "week-points": 0,
+          "year": "Gr.",
+          "position": "DS/L",
+          "season-points": 0,
+          "name": "Logan Mosley"
+        },
+        {
+          "season-points": 0,
+          "year": "Gr.",
+          "week-points": 0,
+          "height": "5-11",
+          "name": "Izzy Ashburn",
+          "position": "S",
+          "school": "wisconsin"
+        },
+        {
+          "year": "Gr.",
+          "season-points": 0,
+          "week-points": 0,
+          "position": "OPP",
+          "height": "6' 2''",
+          "school": "louisville",
+          "name": "Aiko Jones"
+        },
+        {
+          "height": "-",
+          "week-points": 0,
+          "season-points": 0,
+          "position": "MB",
+          "school": "pittsburgh",
+          "name": "Chiamaka Nwokolo",
+          "year": "Gr."
+        },
+        {
+          "school": "wisconsin",
+          "season-points": 0,
+          "name": "Gabby McCaa",
+          "year": "Gr.",
+          "position": "MB/RS",
+          "height": "6-3",
+          "week-points": 0
+        },
+        {
+          "school": "wisconsin",
+          "year": "Gr.",
+          "position": "OH",
+          "height": "6-2",
+          "week-points": 0,
+          "season-points": 0,
+          "name": "Temi Thomas-Ailara"
+        },
+        {
+          "school": "wisconsin",
+          "year": "Gr.",
+          "position": "OH",
+          "height": "6-2",
+          "week-points": 0,
+          "season-points": 0,
+          "name": "Temi Thomas-Ailara"
+        },
+        {
+          "school": "pittsburgh",
+          "position": "S",
+          "height": "5-8",
+          "season-points": 0,
+          "week-points": 0,
+          "year": "Gr.",
+          "name": "Lexis Akeo"
+        },
+        {
+          "position": "MB",
+          "year": "Gr.",
+          "school": "pittsburgh",
+          "season-points": 0,
+          "week-points": 0,
+          "height": "6-4",
+          "name": "Emma Monks"
+        },
+        {
+          "week-points": 0,
+          "position": "S",
+          "season-points": 0,
+          "name": "Brigitta Petrenko",
+          "height": "6' 0''",
+          "year": "Gr.",
+          "school": "louisville"
+        },
       ],
       indexes: [7,8,9,10,11,12,13,14,15,16],
       
@@ -138,6 +239,10 @@ export default {
   },
   mounted() {
     this.loginSuccess = this.$route.query.success === 'true';
+    if(this.$route.query.success === 'true' && window.newUser() == true){
+      new bootstrap.Modal(document.getElementById('newsSubscriptionModal')).show();
+      
+    }
   },
   computed: {
     isLoggedIn() {
@@ -200,12 +305,18 @@ export default {
     },
     calcStyle(index,pos){
       const style = {};
-      if(!this.players[index] || this.players[index].position === pos){
+      if(!this.players[index] || this.players[index].position.includes(pos)){
         return style;
       }
       style.backgroundColor = "#d8bcbe";
       this.outOfPostionWarning = true;
       return style
+    },
+    subscribe(){
+      window.UpdateSubsribeStatus("true");
+    },
+    dontSubscribe(){
+      window.UpdateSubsribeStatus("false");
     }
   },
 };
