@@ -1,5 +1,3 @@
-
-
 export default {
   template:`
     <div class="card achievement">
