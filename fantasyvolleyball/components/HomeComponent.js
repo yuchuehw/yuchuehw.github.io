@@ -15,15 +15,15 @@ export default{
         <button type="button" class="btn-close position-absolute end-0" @click="incorrectBrowserError = false"></button>
       </div>
       
-      <h1 class="mb-4">Welcome to Fantasy Volleyball</h1>
       <div class="row">
         <div v-for="article in articles" :key="article.id" class="col-md-4">
           <div class="card mb-4">
             <img :src="article.thumbnail" class="card-img-top" alt="Article Thumbnail">
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>
-              <p class="card-text">{{ article.summary }}</p>
-              <router-link :to="'/article/' + article.id" class="btn btn-primary">Read More</router-link>
+              <md-block class="card-text">{{ article.summary }}</md-block>
+              <router-link :to="'/article/' + article.id" class="btn btn-primary" :disabled="article.comingSoon === true">Read More</router-link>
+
             </div>
           </div>
         </div>
@@ -35,28 +35,30 @@ export default{
       articles: [
         {
           id: 0,
-          title: "Article 1",
-          summary: "Summary of Article 1",
+          title: "Welcome to Fantasy Volleyball",
+          summary: `Join **Fantasy Volleyball**, a vibrant online community that goes beyond a regular website...`,
           thumbnail: "https://duckduckgo.com/i/4586c410.jpg",
         },
         {
           id: 1,
-          title: "Article 2",
-          summary: "Summary of Article 2",
+          title: "Comming soon",
+          summary: "Summary of Article ...........",
           thumbnail: "https://duckduckgo.com/i/4586c410.jpg",
+          commingSoon: true,
         },
         {
           id: 2,
-          title: "Article 3",
-          summary: "Summary of Article 3",
+          title: "Comming soon",
+          summary: "Summary of Article ............",
           thumbnail: "https://duckduckgo.com/i/4586c410.jpg",
+          commingSoon: true,
         },
-        {
-          id: 3,
-          title: "Article 4",
-          summary: "Summary of Article 4",
-          thumbnail: "https://duckduckgo.com/i/4586c410.jpg",
-        },
+        // {
+        //   id: 3,
+        //   title: "Article 4",
+        //   summary: "Summary of Article 4",
+        //   thumbnail: "https://duckduckgo.com/i/4586c410.jpg",
+        // },
       ],
       logoutSuccess: false,
       incorrectBrowserError: false,
