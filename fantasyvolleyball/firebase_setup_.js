@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 
+import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app-check.js";
+
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"
@@ -17,9 +19,12 @@ import { isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink } fro
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyDrTUss_WCj1OS8h0xjIRj9aNWgtKMk_YI",
 
   authDomain: "fantasy-volleyball-88bff.firebaseapp.com",
+
+  databaseURL: "https://fantasy-volleyball-88bff-default-rtdb.firebaseio.com",
 
   projectId: "fantasy-volleyball-88bff",
 
@@ -27,15 +32,27 @@ const firebaseConfig = {
 
   messagingSenderId: "370961046238",
 
-  appId: "1:370961046238:web:0e49a9a17e12d3a9bbc04f",
+  appId: "1:370961046238:web:5764c52184e7df03bbc04f",
 
-  measurementId: "G-45BHBMYCMB"
+  measurementId: "G-10JNHBDR2M"
+
 };
 
 
 // Initialize Firebase
 
 const fire_app = initializeApp(firebaseConfig);
+
+// Pass your reCAPTCHA v3 site key (public key) to activate(). Make sure this
+// key is the counterpart to the secret key you set in the Firebase console.
+const appCheck = initializeAppCheck(fire_app, {
+  provider: new ReCaptchaV3Provider('6LfgoT8nAAAAACoykwmQxMLRTTPhBpBXOtYsKcdJ'),
+
+  // Optional argument. If true, the SDK automatically refreshes App Check
+  // tokens as needed.
+  isTokenAutoRefreshEnabled: true
+});
+
 
 const db = getFirestore(fire_app);
 
@@ -74,7 +91,7 @@ function handleEmailAuth(email) {
   return new Promise((resolve, reject) => {
     sendSignInLinkToEmail(auth, email, {
       // this is the URL that we will redirect back to after clicking on the link in mailbox
-      url: 'https://yuchuehw.github.io/fantasyvolleyball#?test=true',
+      url: 'https://untimelyslushyregister.volleyvisual.repl.co#?test=true',
       handleCodeInApp: true,
     }).then(() => {
       resolve("true")
