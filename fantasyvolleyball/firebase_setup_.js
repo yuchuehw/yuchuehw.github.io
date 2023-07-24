@@ -20,21 +20,7 @@ import { isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink } fro
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDrTUss_WCj1OS8h0xjIRj9aNWgtKMk_YI",
 
-  authDomain: "fantasy-volleyball-88bff.firebaseapp.com",
-
-  databaseURL: "https://fantasy-volleyball-88bff-default-rtdb.firebaseio.com",
-
-  projectId: "fantasy-volleyball-88bff",
-
-  storageBucket: "fantasy-volleyball-88bff.appspot.com",
-
-  messagingSenderId: "370961046238",
-
-  appId: "1:370961046238:web:5764c52184e7df03bbc04f",
-
-  measurementId: "G-10JNHBDR2M"
 
 };
 
