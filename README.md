@@ -26,9 +26,6 @@ To explore a specific project or topic, simply navigate to the corresponding sub
 
 I appreciate feedback, suggestions, and contributions to enhance my projects. If you have any ideas, bug fixes, or improvements, please feel free to submit a pull request or open an issue.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Contact Me
 
