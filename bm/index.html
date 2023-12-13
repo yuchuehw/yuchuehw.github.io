@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirect Page</title>
+</head>
+
+<body>
+  <script>
+    function redirect() {
+      const redirectPair = {
+        "ant": "https://antalmanac.com/",
+        "bw": "https://bigwest.org/calendar.aspx?path=wvball",
+        "c": "https://canvas.eee.uci.edu",
+        "ctlg": "https://catalogue.uci.edu/previouseditions/2021-22/undergraduatedegrees/",
+        "clnd": "https://reg.uci.edu/calendars/quarterly/2022-2023/quarterly22-23.html",
+        "d": "https://www.desmos.com/calculator",
+        "docs": "https://docs.google.com/document/u/0/create",
+        "drive": "https://drive.google.com",
+        "font": "https://web.mit.edu/jmorzins/www/fonts.html#sans-serif",
+        "gm": "https://snake.googlemaps.com/",
+        "jmb": "https://jamboard.google.com/u/0/create",
+        "l": "https://lichess.org/",
+        "m": "https://mail.google.com/a/uci.edu",
+        "mt": "https://monkeytype.com/",
+        "pres": "https://docs.google.com/presentation/u/0/create",
+        "sht": "https://docs.google.com/spreadsheets/u/0/create",
+        "w": "https://www.cengage.com/dashboard/",
+        "wbrg": "https://webreg1.reg.uci.edu/cgi-bin/wramia",
+        "wvb": "https://bigwest.org/sports/wvball",
+        "wvbs": "https://bigwest.org/calendar.aspx?path=wvball",
+        "zot": "https://zotcourse.appspot.com/",
+        "list": "list"
+      };
+
+      const url = redirectPair[document.location.search.substring(1,)];
+      if (url === "gm") {
+        navigator.clipboard.writeText(`function mf(){l=["", "cairo-bg", "sao-paulo-bg", "london-bg", "sydney-bg", "san-francisco-bg", "tokyo-bg", "world-bg","cairo-bg"]; function inner(key=0){key = key ==0 ?-1 : key == -21 ? 0 : key == 8 ? -1 :key == -16 ? 8 : key;if(key<l.length && key>= 0){_ = l[key];document.getElementsByClassName(_)[0].click();l.pop();l.push(_);document.getElementById("close-instructions-btn").click()}}return inner}mf=mf();document.addEventListener('keyup', function(e){mf(e.keyCode-48)});`);
+      } else if (url === "list") {
+        // console.log(JSON.stringify(redirectPair))
+        document.write(JSON.stringify(redirectPair))
+      } else if (url) {
+        location.replace(url);
+      } else {
+        location.replace("https://duckduckgo.com")
+      }
+    }
+
+    redirect();
+  </script>
+</body>
+
+</html>
