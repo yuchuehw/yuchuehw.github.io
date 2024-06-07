@@ -1,5 +1,5 @@
 let config = {
-  locateFile: () => "./sql/sql-wasm.wasm",
+  locateFile: () => "https://sql.js.org/dist/sql-wasm.wasm",
 };
 const sqlPromise = initSqlJs(config);
 const dataPromise = fetch("./db/dummy_dataset.db").then(res => res.arrayBuffer());
